@@ -17,25 +17,24 @@ namespace cuoi_ki.Class
         {
             Con = new SqlConnection();   //Khởi tạo đối tượng
             Con.ConnectionString = @"Data Source=DESKTOP-48SGGQM\SQLExpress;Initial Catalog=mg_product;Integrated Security=True";
-            Con.Open();                  //Mở kết nối
+            Con.Open();                  
         }
         public static void Disconnect()
         {
             if (Con.State == ConnectionState.Open)
             {
-                Con.Close();    //Đóng kết nối
-                Con.Dispose();  //Giải phóng tài nguyên
+                Con.Close();    
+                Con.Dispose();  
                 Con = null;
             }
         }
         public static DataTable GetDataToTable(string sql)
         {
-            SqlDataAdapter dap = new SqlDataAdapter(); //Định nghĩa đối tượng thuộc lớp SqlDataAdapter
-            //Tạo đối tượng thuộc lớp SqlCommand
+            SqlDataAdapter dap = new SqlDataAdapter(); 
             dap.SelectCommand = new SqlCommand();
             dap.SelectCommand.Connection = Function.Con; //Kết nối cơ sở dữ liệu
             dap.SelectCommand.CommandText = sql; //Lệnh SQL
-            //Khai báo đối tượng table thuộc lớp DataTable
+
             DataTable table = new DataTable();
             dap.Fill(table);
             return table;
@@ -43,10 +42,10 @@ namespace cuoi_ki.Class
 
         public static void RunSQL(string sql)
         {
-            SqlCommand cmd; //Đối tượng thuộc lớp SqlCommand
+            SqlCommand cmd; 
             cmd = new SqlCommand();
-            cmd.Connection = Con; //Gán kết nối
-            cmd.CommandText = sql; //Gán lệnh SQL
+            cmd.Connection = Con; 
+            cmd.CommandText = sql; 
             try
             {
                 cmd.ExecuteNonQuery(); //Thực hiện câu lệnh SQL
@@ -70,7 +69,6 @@ namespace cuoi_ki.Class
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("Dữ liệu đang được dùng, không thể xoá...", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 MessageBox.Show(ex.ToString());
             }
             cmd.Dispose();
